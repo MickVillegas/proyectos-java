@@ -2,6 +2,7 @@ package xml;
 
 import java.io.File;
 
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -12,6 +13,10 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import javax.xml.transform.OutputKeys;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class TarantulasMain {
 
@@ -73,6 +78,36 @@ public class TarantulasMain {
 			  transformer.transform(source, result);
 			  
 			  
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		File f = new File("/home/cibertard/Escritorio/tarantulas.xml");
+		
+		try {
+			
+			  DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			  DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			  Document doc = dBuilder.parse(f);
+			  
+			  doc.getDocumentElement().normalize();
+		  	  NodeList listaTarantulas = doc.getElementsByTagName("tarantula");
+		  	  
+		  	  System.out.println("==========LISTA DE TARÁNTULAS==========");
+		  	  System.out.println();
+		  	  
+		  	  for (int j = 0; j < listaTarantulas.getLength(); j++) {
+				Node nodo = listaTarantulas.item(j);
+				Element el = (Element) nodo;
+				
+				System.out.println("- Nombre común: " + el.getElementsByTagName("NombreComun").item(0).getTextContent());
+				System.out.println("- Nombre científico: " + el.getElementsByTagName("NombreCientifico").item(0).getTextContent());
+				System.out.println("- Nivel de agresividad: " + el.getElementsByTagName("NivelDeAgresividad").item(0).getTextContent());
+				System.out.println("- Colores de la piel: " + el.getElementsByTagName("ColoresDePiel").item(0).getTextContent());
+				System.out.println("- Hábitat: " + el.getElementsByTagName("Habitat").item(0).getTextContent());
+				System.out.println();
+			}
+				  
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
