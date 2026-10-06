@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libreria>
+    <libro>
+        <titulo>El Quijote</titulo>
+        <autor>Miguel de Cervantes</autor>
+        <precio>19.95</precio>
+    </libro>
+    <libro>
+        <titulo>Cien años de soledad</titulo>
+        <autor>Gabriel García Márquez</autor>
+        <precio>22.50</precio>
+    </libro>
+</libreria>
