@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tiburones>
+    <tiburon>
+        <nombre>Tiburón Blanco</nombre>
+        <tipo>Depredador pelágico</tipo>
+        <numerodedientes>3000</numerodedientes>
+        <distribucion_maritima>Océano Atlántico, Océano Pacífico, Océano Índico y Mar Mediterráneo</distribucion_maritima>
+    </tiburon>
+
+    <tiburon>
+        <nombre>Tiburón Ballena</nombre>
+        <tipo>Filtrador gigante</tipo>
+        <numerodedientes>3000</numerodedientes>
+        <distribucion_maritima>Mares tropicales y subtropicales templados</distribucion_maritima>
+    </tiburon>
+
+    <tiburon>
+        <nombre>Tiburón Martillo Gigante</nombre>
+        <tipo>Depredador semi-pelágico</tipo>
+        <numerodedientes>1000</numerodedientes>
+        <distribucion_maritima>Mares tropicales y templados cálidos de todo el mundo</distribucion_maritima>
+    </tiburon>
+
+    <tiburon>
+        <nombre>Tiburón Toro</nombre>
+        <tipo>Depredador costero / Agua dulce</tipo>
+        <numerodedientes>350</numerodedientes>
+        <distribucion_maritima>Costas tropicales, ríos y estuarios cálidos</distribucion_maritima>
+    </tiburon>
+</tiburones>

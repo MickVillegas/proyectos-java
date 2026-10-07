@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buhos>
+    <buho id="1">
+        <nombre_comun>Búho Real</nombre_comun>
+        <nombre_cientifico>Bubo bubo</nombre_cientifico>
+        <habitat>Bosques, zonas rocosas y acantilados</habitat>
+        <envergadura_cm>180</envergadura_cm>
+        <estado_conservacion>Preocupación menor</estado_conservacion>
+    </buho>
+    
+    <buho id="2">
+        <nombre_comun>Búho Nival</nombre_comun>
+        <nombre_cientifico>Bubo scandiacus</nombre_cientifico>
+        <habitat>Tundra ártica</habitat>
+        <envergadura_cm>150</envergadura_cm>
+        <estado_conservacion>Vulnerable</estado_conservacion>
+    </buho>
+    
+    <buho id="3">
+        <nombre_comun>Mochuelo Común</nombre_comun>
+        <nombre_cientifico>Athene noctua</nombre_cientifico>
+        <habitat>Campos abiertos, olivares y zonas agrícolas</habitat>
+        <envergadura_cm>55</envergadura_cm>
+        <estado_conservacion>Preocupación menor</estado_conservacion>
+    </buho>
+    
+    <buho id="4">
+        <nombre_comun>Búho Americano</nombre_comun>
+        <nombre_cientifico>Bubo virginianus</nombre_cientifico>
+        <habitat>Bosques, desiertos y zonas urbanas de América</habitat>
+        <envergadura_cm>140</envergadura_cm>
+        <estado_conservacion>Preocupación menor</estado_conservacion>
+    </buho>
+</buhos>
