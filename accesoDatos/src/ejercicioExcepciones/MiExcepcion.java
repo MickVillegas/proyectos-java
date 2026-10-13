@@ -1,3 +1,7 @@
+package ejercicioExcepciones;
+
+import java.io.File;
+
 public class MiExcepcion extends Exception{
 
     MiExcepcion(String mensajeError){
