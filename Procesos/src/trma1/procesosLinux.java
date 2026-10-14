@@ -110,15 +110,22 @@ public class procesosLinux {
         }
     }
     
-    public void abrirEdge() {
-        // En Linux, para abrir una URL o app por defecto o navegadores instalados
-        pb.command("microsoft-edge"); 
-        try {
-            pb.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	public void leerTXT(String nombreTXT) {
+		pb.command("bash", "-c", "cat " + pb.directory().getAbsolutePath() + "/" + nombreTXT + ".txt");
+		
+		try {
+			Process p = pb.start();
+			
+			Scanner sr = new Scanner(p.getInputStream());
+			
+			while(sr.hasNextLine()) {
+				System.out.println(sr.nextLine());
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
     
     
     
@@ -145,7 +152,8 @@ public class procesosLinux {
             System.out.println("------------------------------------------");
             System.out.println(" 6. Crear archivo .txt");
             System.out.println(" 7. Editar/Escribir en archivo .txt");
-            System.out.println(" 8. Borrar archivo");
+            System.out.println(" 8. Leer archivo");
+            System.out.println(" 9. Borrar archivo");
             System.out.println("------------------------------------------");
             System.out.println(" 0. Salir");
             System.out.println("==========================================");
@@ -204,6 +212,14 @@ public class procesosLinux {
                 break;
 
             case 8:
+            	sc.nextLine();
+                System.out.print("Nombre del archivo que quiere leer: ");
+                nombre = sc.nextLine();
+                System.out.println("Contenido de " + nombre + ".txt");
+                leerTXT(nombre);
+                break;
+                
+            case 9:
             	sc.nextLine();
                 System.out.print("Nombre del archivo a borrar: ");
                 nombre = sc.nextLine();
