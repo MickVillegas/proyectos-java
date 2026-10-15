@@ -42,17 +42,20 @@ public class procesosLinux {
         
         pb.directory(new File(pb.directory().getAbsolutePath() + "/" + directorio));
         
-        // NOTA: Java no puede ejecutar el comando 'cd' como un proceso independiente 
-        // porque 'cd' es un comando interno de la Shell y no un ejecutable del sistema.
-        // La navegación se gestiona cambiando el directorio con pb.directory(...).
-        System.out.println("Has entrado en " + directorio);
+        System.out.println("No se pudo entrar en " + directorio + " puede que el nombre de la carpeta no sea correcto");
     }
     
     public void volverAtras() {
-        File directorioActual = pb.directory();
-        if (directorioActual != null) {
-            pb.directory(new File(directorioActual, ".."));
-        }
+    	
+		if(pb.directory().getAbsolutePath() == "/home/tarde/Escritorio/Mistxt") {
+			System.out.println("No puedes salir del directorio de trabajo");
+		}
+		else {
+	        File directorioActual = pb.directory();
+	        if (directorioActual != null) {
+	            pb.directory(new File(directorioActual, ".."));
+	        }
+		}
     }
     
     public void crearCarpeta(String nombreCarpeta) {
@@ -70,7 +73,7 @@ public class procesosLinux {
         pb.command("touch", pb.directory().getAbsolutePath() + "/" + nombreArchivo + ".txt");
         try {
             Process p = pb.start();
-            System.out.println("Archivo " + nombreArchivo + " creado con éxito");
+            System.out.println("Archivo " + nombreArchivo + ".txt creado con éxito");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Hubo un problema al crear el archivo");
@@ -84,7 +87,7 @@ public class procesosLinux {
             System.out.println("Texto añadido con éxito");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Hubo un problema al añadir texto");
+			System.out.println("Hubo un problema al añadir texto, puede que " + NombreTXT + ".txt no exista");
         }
     }
     
@@ -95,7 +98,7 @@ public class procesosLinux {
             System.out.println("Archivo " + nombreArchivo + " borrado con éxito");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Hubo un problema al borrar el archivo");
+            System.out.println("Hubo un problema al borrar el archivo, puede que " + nombreArchivo + ".txt no exista");
         }
     }
     
@@ -106,7 +109,7 @@ public class procesosLinux {
             System.out.println("Carpeta " + nombreCarpeta + " borrada con éxito");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Hubo un problema al borrar la carpeta");
+            System.out.println("Hubo un problema al borrar la carpeta, puede que " + nombreCarpeta + " no exista");
         }
     }
     
@@ -123,7 +126,7 @@ public class procesosLinux {
 			}
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Hubo un problema al leer el archivo " + nombreTXT + ".txt, puede que no exista");
 		}
 	}
     

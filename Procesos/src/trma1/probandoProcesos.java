@@ -47,15 +47,21 @@ public class probandoProcesos {
 			System.out.println("Has entrado en " + directorio);
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("No se pudo entrar en " + directorio);
+			System.out.println("No se pudo entrar en " + directorio + " puede que el nombre de la carpeta no sea correcto");
 		}
 	}
 	
 	public void volverAtras() {
-	    File directorioActual = pb.directory();
-	    if (directorioActual != null) {
-	        pb.directory(new File(directorioActual, ".."));
-	    }
+		
+		if(pb.directory().getAbsolutePath() == "C:\\Users\\godzi\\Desktop\\Mistxt") {
+			System.out.println("No puedes salir del directorio de trabajo");
+		}
+		else {
+		    File directorioActual = pb.directory();
+		    if (directorioActual != null) {
+		        pb.directory(new File(directorioActual, ".."));
+		    }
+		}
 	}
 	
 	public void crearCarpeta(String nombreCarpeta) {
@@ -74,7 +80,7 @@ public class probandoProcesos {
 		pb.command("cmd.exe", "/c", "type nul > " + pb.directory().getAbsolutePath() + "\\" +nombreArchivo + ".txt\r\n");
 		try {
 			Process p = pb.start();
-			System.out.println("Archivo " + nombreArchivo + " creado con éxito");
+			System.out.println("Archivo " + nombreArchivo + ".txt creado con éxito");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Hubo un problema al crear el archivo");
@@ -88,7 +94,7 @@ public class probandoProcesos {
 			System.out.println("Texto añadido con éxito");
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Hubo un problema al añadir texto");
+			System.out.println("Hubo un problema al añadir texto, puede que " + NombreTXT + ".txt no exista");
 		}
 	}
 	
@@ -99,7 +105,7 @@ public class probandoProcesos {
 			System.out.println("Archivo " + nombreArchivo + " borrado con éxito");
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Hubo un problema al borrar el archivo");
+			System.out.println("Hubo un problema al borrar el archivo, puede que " + nombreArchivo + ".txt no exista");
 		}
 	}
 	
@@ -110,7 +116,7 @@ public class probandoProcesos {
 			System.out.println("Carpeta " + nombreCarpeta + " borrado con éxito");
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Hubo un problema al borrar la carpeta");
+			System.out.println("Hubo un problema al borrar la carpeta, puede que " + nombreCarpeta + " no exista");
 		}
 		
 	}
@@ -128,7 +134,7 @@ public class probandoProcesos {
 			}
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Hubo un problema al leer el archivo " + nombreTXT + ".txt, puede que no exista");
 		}
 	}
 	
