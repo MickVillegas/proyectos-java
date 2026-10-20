@@ -14,12 +14,7 @@ public class guardadoObjetos {
 		
 		ac.guardarEnArray();
 		
-		System.out.println("¡¡¡Bienvenido a Random Play!!!");
-		System.out.println("Añade, borra, consulta o actualiza peliculas");
-		System.out.println("");
-		
 		while(salir != true) {
-			
 			System.out.println("Escriba una accion");
 			System.out.println("- ver");
 			System.out.println("- crear");
@@ -28,23 +23,29 @@ public class guardadoObjetos {
 			System.out.println("- salir");
 			seleccion = sc.nextLine();
 			
-			switch(seleccion.toLowerCase()){
+			switch(seleccion){
 				case "ver":
 					ac.ver();
 					break;
 			
 				case "crear":
-					System.out.println("Ingrese el nombre de la pelicula (cuidado con las yayusculas y minusculas)");
+					System.out.println("Ingrese el nombre de la pelicula");
 					seleccion = sc.nextLine();
 					ac.crear(seleccion);
 					break;
 			
 				case "borrar":
-					ac.borrar();
+					System.out.println("Ingrese el nombre de la pelicula que quiera borrar");
+					seleccion = sc.nextLine();
+					ac.borrar(seleccion);
 					break;
 					
 				case "actualizar":
-					ac.actualizar();
+					System.out.println("Ingrese el nombre de la pelicula que quiera actualizar");
+					String busca = sc.nextLine();
+					System.out.println("Ingrese el nombre nuevo");
+					seleccion = sc.nextLine();
+					ac.actualizar(busca, seleccion);
 					break;
 					
 				case "salir":
