@@ -1,10 +1,11 @@
 package jdbc;
 
+
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ConexionSqlite {
 
@@ -17,7 +18,7 @@ public class ConexionSqlite {
 			e.printStackTrace();
 		}
 		
-		String url = "jdbc:sqlite:C:/Users/godzi/miBaseDeDatos.db";
+		String url = "jdbc:sqlite:/home/tarde/miBaseDeDatos.db";
 		
 		try {
 			Connection con = DriverManager.getConnection(url);

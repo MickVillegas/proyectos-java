@@ -18,7 +18,7 @@ public class RecorridoResulSet {
 					e.printStackTrace();
 		}
 				
-		String url = "jdbc:sqlite:C:/Users/godzi/miBaseDeDatos.db";
+		String url = "jdbc:sqlite:/home/tarde/miBaseDeDatos.db";
 				
 		try {
 			
