@@ -40,9 +40,13 @@ public class procesosLinux {
     
     public void entrarEn(String directorio) {
         
-        pb.directory(new File(pb.directory().getAbsolutePath() + "/" + directorio));
-        
-        System.out.println("No se pudo entrar en " + directorio + " puede que el nombre de la carpeta no sea correcto");
+    	File nuevaCarpeta = new File(pb.directory().getAbsolutePath() + "/" + directorio);
+    	if (nuevaCarpeta.exists() && nuevaCarpeta.isDirectory()) {
+    	    pb.directory(nuevaCarpeta);
+    	    System.out.println("Entradó en " + directorio + " con éxito.");
+    	} else {
+    	    System.out.println("No se pudo entrar en " + directorio + ", la carpeta no existe.");
+    	}
     }
     
     public void volverAtras() {
@@ -59,73 +63,123 @@ public class procesosLinux {
     }
     
     public void crearCarpeta(String nombreCarpeta) {
-        pb.command("mkdir", "-p", pb.directory().getAbsolutePath() + "/" + nombreCarpeta);
-        try {
-            Process p = pb.start();
-            System.out.println("Carpeta " + nombreCarpeta + " creada con éxito");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Hubo un problema al crear la carpeta");
-        }
+    	
+    	File nuevaCarpeta = new File(pb.directory().getAbsolutePath() + "/" + nombreCarpeta);
+    	
+    	if(nuevaCarpeta.exists() && nuevaCarpeta.isDirectory()) {
+    		System.out.println("La carpeta ya existe");
+    	}
+    	else {
+            pb.command("mkdir", "-p", pb.directory().getAbsolutePath() + "/" + nombreCarpeta);
+            try {
+                Process p = pb.start();
+                System.out.println("Carpeta " + nombreCarpeta + " creada con éxito");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    	}
     }
     
     public void crearArchivoTxT(String nombreArchivo) {
-        pb.command("touch", pb.directory().getAbsolutePath() + "/" + nombreArchivo + ".txt");
-        try {
-            Process p = pb.start();
-            System.out.println("Archivo " + nombreArchivo + ".txt creado con éxito");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Hubo un problema al crear el archivo");
-        }
+    	
+    	File nuevoArchivo = new File(pb.directory().getAbsolutePath() + "/" + nombreArchivo + ".txt");
+    	
+    	if(nuevoArchivo.exists() && nuevoArchivo.isFile()) {
+    		System.out.println("El archivo ya existe");
+    	}
+    	else {
+    		 pb.command("touch", pb.directory().getAbsolutePath() + "/" + nombreArchivo + ".txt");
+    	        try {
+    	            Process p = pb.start();
+    	            System.out.println("Archivo " + nombreArchivo + ".txt creado con éxito");
+    	        } catch (IOException e) {
+    	            e.printStackTrace();
+    	        }
+    	}
     }
     
     public void escribirEnTXT(String NombreTXT, String texto) {
-        pb.command("sh", "-c", "echo " + texto + " >> " + pb.directory().getAbsolutePath() + "/" + NombreTXT + ".txt");
-        try {
-            Process p = pb.start();
-            System.out.println("Texto añadido con éxito");
-        } catch (IOException e) {
-            e.printStackTrace();
-			System.out.println("Hubo un problema al añadir texto, puede que " + NombreTXT + ".txt no exista");
-        }
+    	
+    	File archivo = new File(pb.directory().getAbsolutePath() + "/" + NombreTXT + ".txt");
+    	
+    	if(archivo.exists() && archivo.isFile()) {
+    		pb.command("sh", "-c", "echo " + texto + " >> " + pb.directory().getAbsolutePath() + "/" + NombreTXT + ".txt");
+            try {
+                Process p = pb.start();
+                System.out.println("Texto añadido con éxito");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    	}
+    	else {
+    		System.out.println("Hubo un problema al añadir texto, puede que " + NombreTXT + ".txt no exista");
+    	}
+    	
+        
     }
     
     public void borrarArchivo(String nombreArchivo) {
-        pb.command("rm", pb.directory().getAbsolutePath() + "/" + nombreArchivo + ".txt");
-        try {
-            Process p = pb.start();
-            System.out.println("Archivo " + nombreArchivo + " borrado con éxito");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Hubo un problema al borrar el archivo, puede que " + nombreArchivo + ".txt no exista");
-        }
+    	
+    	File archivoBorrar= new File(pb.directory().getAbsolutePath() + "/" + nombreArchivo + ".txt");
+    	
+    	if(archivoBorrar.exists() && archivoBorrar.isFile()) {
+    		
+    		 pb.command("rm", pb.directory().getAbsolutePath() + "/" + nombreArchivo + ".txt");
+    	        try {
+    	            Process p = pb.start();
+    	            System.out.println("Archivo " + nombreArchivo + " borrado con éxito");
+    	        } catch (IOException e) {
+    	            e.printStackTrace();
+    	        }
+    	}
+    	else {
+    		System.out.println("Hubo un problema al borrar el archivo, puede que " + nombreArchivo + ".txt no exista");
+    	}
     }
     
     public void borrarCarpeta(String nombreCarpeta) {
-        pb.command("rm", "-rf", pb.directory().getAbsolutePath() + "/" + nombreCarpeta);
-        try {
-            Process p = pb.start();
-            System.out.println("Carpeta " + nombreCarpeta + " borrada con éxito");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Hubo un problema al borrar la carpeta, puede que " + nombreCarpeta + " no exista");
-        }
+    	
+    	File carpeta = new File(pb.directory().getAbsolutePath() + "/" + nombreCarpeta);
+    	
+    	if (carpeta.exists() && carpeta.isDirectory()) {
+    		pb.command("rm", "-rf", pb.directory().getAbsolutePath() + "/" + nombreCarpeta);
+    		try {
+				Process p = pb.start();
+				System.out.println("Carpeta " + nombreCarpeta + " borrada con éxito");
+			} 
+    		catch (IOException e) {
+				e.printStackTrace();
+			}
+    	} 
+    	else {
+    		System.out.println("Hubo un problema al borrar la carpeta, puede que " + nombreCarpeta + " no exista");
+    	}
     }
     
 	public void leerTXT(String nombreTXT) {
-		pb.command("bash", "-c", "cat " + pb.directory().getAbsolutePath() + "/" + nombreTXT + ".txt");
 		
-		try {
-			Process p = pb.start();
+		File archivo = new File(pb.directory().getAbsolutePath() + "/" + nombreTXT + ".txt");
+		
+		if(archivo.exists() && archivo.isFile()) {
 			
-			Scanner sr = new Scanner(p.getInputStream());
+			pb.command("bash", "-c", "cat " + pb.directory().getAbsolutePath() + "/" + nombreTXT + ".txt");
 			
-			while(sr.hasNextLine()) {
-				System.out.println(sr.nextLine());
+			try {
+				Process p = pb.start();
+				
+				Scanner sr = new Scanner(p.getInputStream());
+				
+				while(sr.hasNextLine()) {
+					System.out.println(sr.nextLine());
+				}
+				
+				p.waitFor();
+				
+			} catch (IOException | InterruptedException e) {
 			}
 			
-		} catch (IOException e) {
+		}
+		else {
 			System.out.println("Hubo un problema al leer el archivo " + nombreTXT + ".txt, puede que no exista");
 		}
 	}
@@ -235,7 +289,7 @@ public class procesosLinux {
                 break;
 
             default:
-                System.out.println(" pción no reconocida. Elige un número del 0 al 8.");
+                System.out.println("Opción no reconocida. Elige un número del 0 al 9.");
                 break;
 			}
 			
