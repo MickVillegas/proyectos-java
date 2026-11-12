@@ -14,8 +14,7 @@ public class Parking {
 		sm.acquire();
 		
 		synchronized(this) {	
-			diez++;
-			System.out.println(n +" a ocupado un aparcamiento libre");
+			//diez++;
 			
 			for (int i = 0; i < arr.length; i++) {
 
@@ -23,17 +22,16 @@ public class Parking {
 					arr[i] = num;
 					break;
 				}
-			}
-			
-			if(diez % 10 == 0) {
-				mostrar(n);
-			}
+			}	
+			System.out.println(n +" a ocupado un aparcamiento libre");
+			mostrar();
 		}
 		
-		int tiempo = ThreadLocalRandom.current().nextInt(0, 10000);
+		int tiempo = ThreadLocalRandom.current().nextInt(1000, 60000);
 		Thread.sleep(tiempo);
 		
 		sm.release();
+		
 		synchronized(this) {	
 			int indice = -1;
 
@@ -43,19 +41,34 @@ public class Parking {
 			        break;
 			    }
 			}
-			arr[indice] = 0; 
+			if (indice != -1) {
+                arr[indice] = 0;    
+            }
+			System.out.println(n + " ha dejado libre su aparcamiento:");
+			mostrar();
 		}
-		
-		System.out.println(n +" a dejado un aparcamiento libre");
 	}
 	
-	public synchronized void mostrar(String n){
-		System.out.println(n + ":");
-		
+	public synchronized void mostrar(){
+	    System.out.print("[ ");
+	    for (int i = 0; i < arr.length; i++) {
+	        if (arr[i] == 0) {
+	            System.out.print("🅿️ "); // Plaza libre
+	        } else {
+	            System.out.print("🚗[" + arr[i] + "] "); // Coche con su número
+	        }
+	    }
+	    System.out.println("]");
+	    System.out.println("--------------------------------------------------");
+	}
+	
+	/*
+	 public synchronized void mostrar(){
 		for (int i = 0; i < arr.length; i++) {
 			System.out.print(arr[i] + " ");
 		}
 		System.out.println();
 	}
+	*/
 	
 }
