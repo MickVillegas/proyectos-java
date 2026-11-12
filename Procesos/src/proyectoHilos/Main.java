@@ -4,25 +4,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Prueba p = new Prueba();
-
-		Hilos h = new Hilos("hilo 1", p);
-		Hilos h2 = new Hilos("hilo 2", p);
-		Hilos h3 = new Hilos("hilo 3", p);
+		Parking p = new Parking();
 		
-		h.start();
-		h2.start();
-		h3.start();
-
-		try {
-			h.join();
-			h2.join();
-			h3.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		for (int i = 1; i <= 30; i++) {
+			Hilos h = new Hilos("hilo " + i, p, i);
+			h.start();
 		}
-		
-	//	p.mostrar();
 		
 	}
 
