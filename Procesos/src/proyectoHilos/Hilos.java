@@ -1,10 +1,13 @@
 package proyectoHilos;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Hilos extends Thread{
 
 	private String nombre;
 	private Parking p; 
 	private int espacio;
+	private boolean minusValido = false;
 	
 	Hilos(String n, Parking p, int es){
 		this.nombre = n;
@@ -24,11 +27,24 @@ public class Hilos extends Thread{
 		this.espacio = e;
 	}
 	
+	public boolean getminusValido() {
+		return this.minusValido;
+	}
+	
+	public void setminusValidoAtrue() {
+		this.minusValido = true;
+	}
+	
 	@Override
 	public void run() {
 		
+		int probabilidad = ThreadLocalRandom.current().nextInt(1, 101);
+		if (probabilidad <= 20) { 
+			setminusValidoAtrue();
+		}
+		
 		try {
-			this.p.ocupar(getNombre(), getEspacio());
+			this.p.ocupar(getNombre(), getEspacio(), getminusValido());
 		} 
 		catch (InterruptedException e) {
 			e.printStackTrace();
