@@ -1,5 +1,6 @@
 package proyectoHilos;
 
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -8,13 +9,21 @@ public class Parking {
 	Semaphore sm = new Semaphore(10);
 	int arr [] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	int diez = 0;
+	ArrayList <Integer> cola = new ArrayList();
+	
+	public synchronized void acumular(int i) {
+		cola.add(i);
+	}
 	
 	public void ocupar(String n, int num, boolean dis) throws InterruptedException {
+		
+		acumular(num);
 		
 		sm.acquire();
 		
 		synchronized(this) {	
-			//diez++;
+			
+			mostrarArray("Cola al parking ");
 			
 			for (int i = 0; i < arr.length; i++) {
 
@@ -32,6 +41,7 @@ public class Parking {
 					}
 				}
 			}	
+			cola.remove(cola.indexOf(num));
 			System.out.println(n +" a ocupado un aparcamiento libre");
 			mostrar();
 		}
@@ -53,12 +63,19 @@ public class Parking {
 			if (indice != -1) {
                 arr[indice] = 0;    
             }
+			
 			System.out.println(n + " ha dejado libre su aparcamiento:");
 			mostrar();
 		}
 	}
 	
+	
+	public synchronized void mostrarArray(String mensaje){
+		System.out.println(mensaje + cola.toString());
+	}
+	
 	public synchronized void mostrar(){
+		
 	    System.out.print("[ ");
 	    for (int i = 0; i < arr.length; i++) {
 	        if (arr[i] == 0) {
@@ -76,6 +93,7 @@ public class Parking {
 	        }
 	    }
 	    System.out.println("]");
+	    mostrarArray("Cola al parking actualizada ");
 	    System.out.println("--------------------------------------------------");
 	}
 	
