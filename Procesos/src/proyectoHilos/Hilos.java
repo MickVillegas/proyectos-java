@@ -6,25 +6,21 @@ public class Hilos extends Thread{
 
 	private String nombre;
 	private Parking p; 
-	private int espacio;
+	private int id;
 	private boolean minusValido = false;
 	
 	Hilos(String n, Parking p, int es){
 		this.nombre = n;
 		this.p = p;
-		this.espacio = es;
+		this.id = es;
 	}
 	
 	public String getNombre() {
 		return this.nombre;
 	}
 	
-	public int getEspacio() {
-		return this.espacio;
-	}
-	
-	public void setEspacio(int e) {
-		this.espacio = e;
+	public int getIde() {
+		return this.id;
 	}
 	
 	public boolean getminusValido() {
@@ -38,17 +34,20 @@ public class Hilos extends Thread{
 	@Override
 	public void run() {
 		
+		//this.p.acumular(getEspacio());
+		
 		int probabilidad = ThreadLocalRandom.current().nextInt(1, 101);
 		if (probabilidad <= 20) { 
 			setminusValidoAtrue();
 		}
 		
 		try {
-			this.p.ocupar(getNombre(), getEspacio(), getminusValido());
+			this.p.ocupar(getNombre(), getIde(), getminusValido());
 		} 
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 		
 	}
 	

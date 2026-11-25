@@ -7,46 +7,37 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Parking {
 
 	Semaphore sm = new Semaphore(10);
-	int arr [] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-	int diez = 0;
-	ArrayList <Integer> cola = new ArrayList();
-	
-	public synchronized void acumular(int i) {
-		cola.add(i);
-	}
+	int aparcamientos [] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	
 	public void ocupar(String n, int num, boolean dis) throws InterruptedException {
 		
-		acumular(num);
+		//acumular(num);
 		
 		sm.acquire();
 		
 		synchronized(this) {	
 			
-			mostrarArray("Cola al parking ");
-			
-			for (int i = 0; i < arr.length; i++) {
+			for (int i = 0; i < aparcamientos.length; i++) {
 
-				if(arr[i] == 0) {
+				if(aparcamientos[i] == 0) {
 					if(i == 8 && dis == true || i == 9 && dis == true) {
-						arr[i] = num;
+						aparcamientos[i] = num;
 						break;
 					}
 					else {
 						if(i < 8) {
-							arr[i] = num;
+							aparcamientos[i] = num;
 							break;
 						}
 
 					}
 				}
 			}	
-			cola.remove(cola.indexOf(num));
 			System.out.println(n +" a ocupado un aparcamiento libre");
-			mostrar();
+			mostrarEstadoParking();
 		}
 		
-		int tiempo = ThreadLocalRandom.current().nextInt(1000, 60000);
+		int tiempo = ThreadLocalRandom.current().nextInt(1000, 6000);
 		Thread.sleep(tiempo);
 		
 		sm.release();
@@ -54,31 +45,26 @@ public class Parking {
 		synchronized(this) {	
 			int indice = -1;
 
-			for (int i = 0; i < arr.length; i++) {
-			    if (arr[i] == num) {
+			for (int i = 0; i < aparcamientos.length; i++) {
+			    if (aparcamientos[i] == num) {
 			        indice = i;
 			        break;
 			    }
 			}
 			if (indice != -1) {
-                arr[indice] = 0;    
+				aparcamientos[indice] = 0;    
             }
 			
 			System.out.println(n + " ha dejado libre su aparcamiento:");
-			mostrar();
+			mostrarEstadoParking();
 		}
 	}
 	
-	
-	public synchronized void mostrarArray(String mensaje){
-		System.out.println(mensaje + cola.toString());
-	}
-	
-	public synchronized void mostrar(){
+	public synchronized void mostrarEstadoParking(){
 		
 	    System.out.print("[ ");
-	    for (int i = 0; i < arr.length; i++) {
-	        if (arr[i] == 0) {
+	    for (int i = 0; i < aparcamientos.length; i++) {
+	        if (aparcamientos[i] == 0) {
 	            if (i >= 8) {
 	                System.out.print("♿ "); 
 	            } else {
@@ -86,14 +72,13 @@ public class Parking {
 	            }
 	        } else {
 	            if (i >= 8) {
-	                System.out.print("🚙[" + arr[i] + "] ");
+	                System.out.print("🚙[" + aparcamientos[i] + "] ");
 	            } else {
-	                System.out.print("🚗[" + arr[i] + "] ");
+	                System.out.print("🚗[" + aparcamientos[i] + "] ");
 	            }
 	        }
 	    }
 	    System.out.println("]");
-	    mostrarArray("Cola al parking actualizada ");
 	    System.out.println("--------------------------------------------------");
 	}
 	
