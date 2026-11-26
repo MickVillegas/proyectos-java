@@ -9,11 +9,17 @@ public class Parking {
 	Semaphore sm = new Semaphore(10);
 	int aparcamientos [] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	
+	ArrayList<Integer> cola = new ArrayList<>();
+
+    public void aniadirCola(int idCoche) {
+        cola.add(idCoche);
+    }
+	
 	public void ocupar(String n, int num, boolean dis) throws InterruptedException {
 		
-		//acumular(num);
-		
 		sm.acquire();
+		
+		mostrarArray("Cola al parking ");
 		
 		synchronized(this) {	
 			
@@ -33,6 +39,7 @@ public class Parking {
 					}
 				}
 			}	
+			cola.remove(cola.indexOf(num));
 			System.out.println(n +" a ocupado un aparcamiento libre");
 			mostrarEstadoParking();
 		}
@@ -60,26 +67,36 @@ public class Parking {
 		}
 	}
 	
+	public synchronized void mostrarArray(String mensaje){
+		System.out.println(mensaje + cola.toString());
+	}
+	
 	public synchronized void mostrarEstadoParking(){
 		
-	    System.out.print("[ ");
-	    for (int i = 0; i < aparcamientos.length; i++) {
-	        if (aparcamientos[i] == 0) {
-	            if (i >= 8) {
-	                System.out.print("♿ "); 
-	            } else {
-	                System.out.print("🅿️ "); 
-	            }
-	        } else {
-	            if (i >= 8) {
-	                System.out.print("🚙[" + aparcamientos[i] + "] ");
-	            } else {
-	                System.out.print("🚗[" + aparcamientos[i] + "] ");
-	            }
-	        }
-	    }
-	    System.out.println("]");
-	    System.out.println("--------------------------------------------------");
+		System.out.print("[ ");
+
+		for (int i = 0; i < aparcamientos.length; i++) {
+			if (aparcamientos[i] == 0) {
+				if (i >= 8) {
+					System.out.print("♿ ");
+				} 
+				else {
+					System.out.print("🅿️ ");				
+				}
+
+			} 
+			else {
+				if (i >= 8) {
+					System.out.print("🚙[" + aparcamientos[i] + "] ");
+				} 
+				else {
+					System.out.print("🚗[" + aparcamientos[i] + "] ");
+				}
+			}
+		}
+		System.out.println("]");
+		mostrarArray("Cola al parking actualizada ");
+		System.out.println("--------------------------------------------------");
 	}
 	
 	/*

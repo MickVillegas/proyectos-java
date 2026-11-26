@@ -34,8 +34,6 @@ public class Hilos extends Thread{
 	@Override
 	public void run() {
 		
-		//this.p.acumular(getEspacio());
-		
 		int probabilidad = ThreadLocalRandom.current().nextInt(1, 101);
 		if (probabilidad <= 20) { 
 			setminusValidoAtrue();
@@ -47,8 +45,5 @@ public class Hilos extends Thread{
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
-	
 }
